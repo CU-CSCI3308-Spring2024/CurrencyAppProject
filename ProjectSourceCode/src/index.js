@@ -79,18 +79,6 @@ app.get('/register', (req, res) => { // code to render registyer page
   res.render('pages/register');
 });
 
-app.get('/profile', (req, res) => {
-  res.render('pages/profile');
-});
-
-app.get('/home', (req,res)=>{
-  res.render('pages/home');
-});
-
-app.get('/currency_converter', (req,res)=>{
-  res.render('pages/currency_converter');
-});
-
 
 app.post('/register', async (req, res) => {
   try {
@@ -171,6 +159,19 @@ next();
 
 // Authentication Required
 app.use(auth);
+
+app.get('/profile', (req, res) => {
+  res.render('pages/profile');
+});
+
+app.get('/home', (req,res)=>{
+  res.render('pages/home');
+});
+
+app.get('/currency_converter', (req,res)=>{
+  res.render('pages/currency_converter');
+});
+
 
 app.get('/logout', (req, res) => {
     req.session.destroy(err => {
