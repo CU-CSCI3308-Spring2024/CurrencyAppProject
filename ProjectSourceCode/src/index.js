@@ -146,13 +146,14 @@ const apiKey = process.env.API_KEY;
 axios({
   method: 'get',
   url: 'https://api.currencyapi.com/v3/latest',
-  param:{
+  params:{
     ...req.query,
-    apiKey
+    apikey: apiKey
   }
   })
-.then(results=>{
-  res.status(response.code).json(response.data);
+.then(response=>{
+  console.log(response);
+  res.status(response.status).json(response.data);
 })
 .catch(error=>{
   console.error('Error', error)
