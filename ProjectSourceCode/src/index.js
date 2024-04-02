@@ -122,7 +122,7 @@ try {
     if (match) {
       req.session.user = user;
       req.session.save();
-    res.redirect('/currency_converter')
+    res.redirect('/home')
   } else {
     res.render('pages/login', { message: 'Incorrect username or password.' }); // if username matches but credentils are incorrect message will display 
   }
@@ -149,6 +149,14 @@ axios({
   console.error('Error', error)
   res.status(500).json({error: 'Error'});
 });
+});
+
+app.get('/home', (req,res)=>{
+  res.render('pages/home');
+});
+
+app.get('/profile', (req,res)=>{
+  res.render('pages/profile');
 });
 
 
