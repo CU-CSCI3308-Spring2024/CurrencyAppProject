@@ -155,11 +155,6 @@ app.get('/home', (req,res)=>{
   res.render('pages/home');
 });
 
-app.get('/profile', (req,res)=>{
-  res.render('pages/profile');
-});
-
-
 app.get('/currency_converter', (req,res)=>{
   res.render('pages/currency_converter');
 });
