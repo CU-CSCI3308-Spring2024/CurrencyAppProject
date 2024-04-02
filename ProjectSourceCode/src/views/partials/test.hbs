@@ -10,41 +10,6 @@
 
     <!-- The container where the conversion result will be displayed -->
     <div id="result">Loading exchange rate...</div>
-
-    <script>
-        const apiKey = 'cur_live_xzLkdrHYs6YZ7YtF3ZgfEKH98e3yvyi5BLjuJxp0'; 
-
-        // This function will fetch the latest currency exchange rates and print them
-        function getLatestRates() {
-            const url = 'https://api.currencyapi.com/v3/latest';
-
-            fetch(url, {
-                method: 'GET',
-                headers: {
-                    'apikey': 'cur_live_xzLkdrHYs6YZ7YtF3ZgfEKH98e3yvyi5BLjuJxp0'
-                }
-            })
-            .then(response => {
-                // Check if the request was successful
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log('API Response:', data);
-
-                const rate = data.data['EUR'].value; // Use '.value' to get the rate from the object
-
-                document.getElementById('result').innerText = `1 USD is equal to ${rate} EUR`;
-            })
-            .catch(error => {
-                console.error('There was an error fetching the exchange rates:', error);
-                document.getElementById('result').innerText = 'Error fetching exchange rate.';
-            });
-        }
-
-        getLatestRates();
-    </script>
+    
 </body>
 </html>
