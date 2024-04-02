@@ -388,14 +388,10 @@ try {
   
   const match = await bcrypt.compare(req.body.password, user.password);
   
-  if (match) {
-    req.session.user = user; // if the credentials are correct , the session is saved and the user gets redirected to the main page 
-    req.session.save();
-    
     if (match) {
       req.session.user = user;
       req.session.save();
-    res.redirect('/currency_converter')
+    res.redirect('/home')
   } else {
     res.render('pages/login', { message: 'Incorrect username or password.' }); // if username matches but credentils are incorrect message will display 
   }
@@ -403,6 +399,14 @@ try {
   console.error('Error:', error);
   res.render('pages/login', { message: 'An error occurred. Please try again.' });
 }
+});
+
+app.get('/home', (req,res)=>{
+  res.render('pages/home');
+});
+
+app.get('/profile', (req,res)=>{
+  res.render('pages/profile');
 });
 
 app.get('/currency_converter', (req,res)=>{
