@@ -23,6 +23,11 @@ Chloé Wolff de Grivel Perrigny, Kate Ehrnstrom, Daniel Folino, Carter Sammis, Y
 ## How to Run Application Locally 
 
 ## How to Run Tests
+To run the test cases, run 
+```bash
+docker compose up 
+```
+in your local terminal, and the test cases should execute
 
 ## Link to Deployed Application 
 
