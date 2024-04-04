@@ -1,0 +1,29 @@
+Features that will be tested in week 4: 
+
+- All hosted on localhost
+
+Register
+    - Check that it redirects to login
+        - Uses a sample username and password to pass into the register, after which it checks if it redirected succesfully to login.
+    - Check that the user was correctly added to the database
+        - When the user enters their information on the register page, the user is added to the database. Write a test case that checks that it is added successfully
+Login
+    - That credentials are correct 
+        - Check the users input to the database and if there is not match, return that in a message
+    - Check that it redirects to home page 
+        - write a test case that makes sure if the user credentials are correctly matching, that the page redirects to the home page 
+
+Forgot Password 
+    - Make sure that email is the correct format
+        - User must input the correct email format, check in test case using RegEx characters 
+    - Redirects to link reset 
+        - Once the email is correctly formatted, when the user hits the submit button, the page should redirect to a page 
+        that says that an email was sent to reset the password 
+
+Logout 
+    - Test that the session was destroyed
+        - When user hits logout, the session should be destroyed, write a test case that checks this
+    - Test that it redirects to login on onclick to any of the pages 
+        - Once logged out, the page should say "successfully logged out" 
+        - Test that if user clicks on any of the pages (Home, Currency Converter, etc.), the page will redirect to login if the 
+        user is not logged in
