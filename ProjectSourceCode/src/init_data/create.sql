@@ -9,14 +9,13 @@ CREATE TABLE IF NOT EXISTS users (
 
 DROP TABLE IF EXISTS conversions CASCADE;
 CREATE TABLE IF NOT EXISTS conversions (
-    conversion_id SERIAL PRIMARY KEY NOT NULL
-); 
-
-DROP TABLE IF EXISTS users_to_conversions CASCADE;
-CREATE TABLE IF NOT EXISTS users_to_conversions (
+    conversion_id SERIAL PRIMARY KEY NOT NULL,
     user_id INT NOT NULL,
-    conversion_id INT NOT NULL,
+    from_currency VARCHAR(3),
+    to_currency VARCHAR(3),
+    amount DECIMAL(10, 2),
+    rate numeric,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE,
-    FOREIGN KEY (conversion_id) REFERENCES conversions (conversion_id) ON DELETE CASCADE
-); 
-
+    converted_amount numeric generated always as (amount * rate) STORED
+);

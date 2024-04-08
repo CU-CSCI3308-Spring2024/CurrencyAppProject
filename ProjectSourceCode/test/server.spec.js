@@ -45,6 +45,7 @@ describe('/POST register', () => {
   });
 });
 
+
 describe('Access Protected Page', () => {
   it('should redirect to the login page if not logged in', (done) => {
     chai.request(server)

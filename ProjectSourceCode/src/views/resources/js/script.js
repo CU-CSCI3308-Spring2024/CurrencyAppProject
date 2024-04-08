@@ -9,9 +9,7 @@ function clearFields() {
     document.getElementById('exchangeRate').textContent = '---';
 }
 
-//const apiKey = process.env.API_KEY;
-const apiKey = 'cur_live_xzLkdrHYs6YZ7YtF3ZgfEKH98e3yvyi5BLjuJxp0';
-// Global list of currencies (you would fill this list with all available currencies)
+
 var currencies = {
     'USD': 'United States Dollar',
     'EUR': 'Euro',
@@ -232,9 +230,7 @@ function convertCurrency() {
     const toCurrency = document.getElementById('toCurrencyInput').value.toUpperCase();
     const amount = document.getElementById('amountInput').value;
 
-    // Construct the API URL with proper currency codes and the amount
-    const url = `/api/convert_currency?base_currency=${fromCurrency}`;
-
+   const url = `/api/convert_currency?base_currency=${fromCurrency}&to_currency=${toCurrency}&amount=${amount}`
     fetch(url)
         .then(response => {
             if (!response.ok) {
@@ -243,11 +239,11 @@ function convertCurrency() {
             return response.json();
         })
         .then(data => {
-            if (data && data.data[toCurrency]) {
-                const rate = data.data[toCurrency].value;
+            if (data && data.rate) {
+                const rate = data.rate;
                 const convertedAmount = rate * amount;
                 document.getElementById('exchangeRate').textContent = `${amount} ${fromCurrency} is equal to ${convertedAmount.toFixed(6)} ${toCurrency}`;
-                document.getElementById('conversionText').textContent = `${fromCurrency} to ${toCurrency}`;
+                document.getElementById('conversionText').textContent = `${fromCurrency} = ${rate.toFixed(6)} ${toCurrency}`;
             } else {
                 document.getElementById('exchangeRate').textContent = 'Currency code not found';
                 document.getElementById('conversionText').textContent = 'Conversion error';
