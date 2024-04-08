@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-md-12 mx-auto">
+      <h2>Your Search History</h2>
+      {{#if searchHistory.length}}
+        <table class="table">
+          <thead>
+            <tr>
+              <th>From Currency</th>
+              <th>To Currency</th>
+              <th>Amount</th>
+              <th>Converted Amount</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each searchHistory}}
+              <tr>
+                <td>{{this.from_currency}}</td>
+                <td>{{this.to_currency}}</td>
+                <td>{{this.amount}}</td>
+                <td>{{this.converted_amount}}</td>
+                <td>{{this.created_at}}</td> 
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      {{else}}
+        <p>You have no search history.</p>
+      {{/if}}
+    </div>
+  </div>
+</div>
