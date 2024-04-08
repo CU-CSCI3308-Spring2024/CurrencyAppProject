@@ -87,6 +87,12 @@ app.post('/register', async (req, res) => {
   try {
     const { username, password } = req.body;
 
+    // Validate username to ensure it's not empty or consisting only of whitespace characters
+    if (!username || username.trim() === '') {
+      res.status(400).json({ message: 'Invalid input: Username cannot be empty or contain only whitespace characters.' });
+      return;
+    }
+    
     // Check if username already exists
     const userExists = await db.oneOrNone('SELECT * FROM users WHERE username = $1', username);
     
@@ -131,10 +137,10 @@ app.post('/login', async (req, res) => {
 try {
 
   const user = await db.oneOrNone('SELECT * FROM users WHERE username = $1', req.body.username); // compare login credetials to those ones that exist
-  
+  console.log(user);
+
   if (!user) { // if user dose not match any exising users redirect to register page so they can register 
     res.redirect('/register');
-    return;
   }
   
   const match = await bcrypt.compare(req.body.password, user.password);
@@ -142,13 +148,13 @@ try {
     if (match) {
       req.session.user = user;
       req.session.save();
-    res.redirect('/home')
+    res.status(200).redirect('/home')
   } else {
-    res.render('pages/login', { message: 'Incorrect username or password.' }); // if username matches but credentils are incorrect message will display 
+    res.status(401).render('pages/login', { message: 'Incorrect username or password.' }); // if username matches but credentils are incorrect message will display 
   }
 } catch (error) {
   console.error('Error:', error);
-  res.render('pages/login', { message: 'An error occurred. Please try again.' });
+  res.status(500).render('pages/login', { message: 'An error occurred. Please try again.' });
 }
 });
 var currencies = {

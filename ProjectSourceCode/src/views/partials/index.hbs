@@ -1,37 +1,35 @@
+<div class="container">
+         <div class="row mt-5">
+             <div class="col-md-6 mx-auto">               
+                 <div class="input-group mb-3">
+                     <input type="text" id="fromCurrencyInput" class="form-control" oninput="filterCurrencies('from')" placeholder="Currency to convert from" aria-label="From currency">
+                     <div id="fromCurrencyList" class="currency-list"></div>
+                 </div>
 
-    <div class="container">
-        <div class="row mt-5">
-            <div class="col-md-6 mx-auto">               
-                <div class="input-group mb-3">
-                    <input type="text" id="fromCurrencyInput" class="form-control" oninput="filterCurrencies('from')" placeholder="Currency to convert from" aria-label="From currency">
-                    <div id="fromCurrencyList" class="currency-list"></div>
-                </div>
-                
-                <div class="input-group mb-3">
-                    <input type="text" id="toCurrencyInput" class="form-control" oninput="filterCurrencies('to')" placeholder="Currency to convert to" aria-label="To currency">
-                    <div id="toCurrencyList" class="currency-list"></div>
-                </div>
-    
-                <!-- The new amount input field -->
-                <div class="input-group mb-3">
-                    <input type="number" id="amountInput" class="form-control" placeholder="Enter amount" aria-label="Amount to convert">
-                </div>
-                
-                <div class="button-group">
-                    <button class="btn btn-primary" onclick="convertCurrency()">Convert</button>
-                    <button class="btn btn-secondary" onclick="clearFields()">Clear</button>
-                </div>
-                
-                <!-- Conversion result display -->
-                <h5 class="converted-currency-header">Converted Currency:</h5>
-                <div class="card currency-card">
-                    <div class="card-body">
-                        <p class="card-text" id="conversionText">Converted amount will be displayed here</p>
-                        <p class="card-text exchange-rate" id="exchangeRate">-</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-<script src="/js/script.js"></script>
+                 <div class="input-group mb-3">
+                     <input type="text" id="toCurrencyInput" class="form-control" oninput="filterCurrencies('to')" placeholder="Currency to convert to" aria-label="To currency">
+                     <div id="toCurrencyList" class="currency-list"></div>
+                 </div>
 
+                 <!-- The new amount input field -->
+                 <div class="input-group mb-3">
+                     <input type="number" id="amountInput" class="form-control" placeholder="Enter amount" aria-label="Amount to convert">
+                 </div>
+
+                 <div class="button-group">
+                     <button class="btn btn-primary" onclick="convertCurrency()">Convert</button>
+                     <button class="btn btn-secondary" onclick="clearFields()">Clear</button>
+                 </div>
+
+                 <!-- Conversion result display -->
+                 <h5 class="converted-currency-header">Converted Currency:</h5>
+                 <div class="card currency-card">
+                     <div class="card-body">
+                         <p class="card-text" id="conversionText">Converted amount will be displayed here</p>
+                         <p class="card-text exchange-rate" id="exchangeRate">-</p>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>
+ <script src="/js/script.js"></script>
