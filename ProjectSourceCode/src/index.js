@@ -436,6 +436,9 @@ app.get('/currency_converter', (req,res)=>{
   res.render('pages/currency_converter', { showNavbar: true });
 });
 
+app.get('/news', (req,res)=>{
+  res.render('pages/news', {showNavbar: true});
+});
 
 app.get('/logout', (req, res) => {
     req.session.destroy(err => {
