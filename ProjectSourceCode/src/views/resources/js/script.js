@@ -278,8 +278,5 @@ function clearFields() {
     document.getElementById('conversionText').textContent = 'Please enter values to see the converted currency';
 }
 
-
-
-
 //
 //

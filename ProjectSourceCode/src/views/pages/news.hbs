@@ -1,1 +1,13 @@
-<p>Test</p>
+<h1>News Articles On Currency</h1>
+<h2>Latest News</h2>
+    {{#if articles}}
+        <ul>
+            {{#each articles}}
+                <li><strong>{{title}}</strong> - {{description}}</li>
+            {{/each}}
+        </ul>
+    {{else}}
+        <p>No news articles found.</p>
+    {{/if}}  
+
+

@@ -436,9 +436,35 @@ app.get('/currency_converter', (req,res)=>{
   res.render('pages/currency_converter', { showNavbar: true });
 });
 
-app.get('/news', (req,res)=>{
-  res.render('pages/news', {showNavbar: true});
+
+
+app.get('/news', (req, res) => {
+  const api_Key = "5edee46983924da28b3db8bec752ad72";
+  console.log(api_Key);
+  axios({
+      method: 'get',
+      url: 'https://newsapi.org/v2/everything',
+      params: {
+          q : 'currency',
+          languages: 'en',
+          apiKey : api_Key,
+      }
+  })
+  .then(response => {
+      console.log(response.data);
+      // Combining `showNavbar` and `articles` into a single object for the template
+      res.render('pages/news', {
+          showNavbar: true,
+          articles: response.data.articles
+      });
+  })
+  .catch(error => {
+      console.error('Error', error);
+      // Sending a JSON response in case of error
+      res.status(500).json({ error: 'Internal Server Error' });
+  });
 });
+
 
 app.get('/logout', (req, res) => {
     req.session.destroy(err => {
