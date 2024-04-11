@@ -447,19 +447,23 @@ app.get('/news', (req, res) => {
       method: 'get',
       url: 'https://newsapi.org/v2/everything',
       params: {
-          q : 'currency',
-          languages: 'en',
+          q : 'currency exchange',
+          language: 'en',
           apiKey : api_Key,
       }
   })
-  .then(response => {
-      console.log(response.data);
-      // Combining `showNavbar` and `articles` into a single object for the template
-      res.render('pages/news', {
-          showNavbar: true,
-          articles: response.data.articles
-      });
-  })
+.then(response => {
+    console.log(response.data);
+    res.render('pages/news', {
+        showNavbar: true,
+        articles: response.data.articles.map(article => ({
+            title: article.title,
+            description: article.description,
+            url: article.url,
+            imageURL: article.urlToImage
+        }))
+    });
+})
   .catch(error => {
       console.error('Error', error);
       // Sending a JSON response in case of error

@@ -1,13 +1,17 @@
-<h1>News Articles On Currency</h1>
-<h2>Latest News</h2>
+<div class="container mt-5">
+    <h1 class="text-center mb-3">Latest News On Currency</h1>
     {{#if articles}}
-        <ul>
+        <ul class="list">
             {{#each articles}}
-                <li><strong>{{title}}</strong> - {{description}}</li>
+                <li class="my-2 text-center">
+                    <img src="{{image}}" alt="{{title}}" style="max-width: 100%; height: auto; display: block; margin: 0 auto;">
+                    <strong>{{title}}</strong> - {{description}}
+                    <br>
+                    <a href="{{url}}" target="_blank" class="btn btn-primary mt-2">Read more</a>
+                </li>
             {{/each}}
         </ul>
     {{else}}
-        <p>No news articles found.</p>
-    {{/if}}  
-
-
+        <p class="text-center">No news articles found.</p>
+    {{/if}}
+</div>
