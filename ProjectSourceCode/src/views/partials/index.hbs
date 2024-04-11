@@ -10,7 +10,7 @@
         <!-- Label for the 'from' currency input -->
         <label for="fromCurrencyInput" class="form-label">Currency to convert from</label>
         <!-- 'From' currency input field -->
-        <input type="text" id="fromCurrencyInput" class="form-control" oninput="filterCurrencies('from')" placeholder="Type currency name or code">
+  <input type="text" id="fromCurrencyInput" name="from_currency" value="{{from_currency}}" class="form-control" oninput="filterCurrencies('from')" placeholder="Type currency name or code">
         <!-- Dropdown for 'from' currency list -->
         <div id="fromCurrencyList" class="currency-list list-group"></div>
       </div>
@@ -20,7 +20,7 @@
         <!-- Label for the 'to' currency input -->
         <label for="toCurrencyInput" class="form-label">Currency to convert to</label>
         <!-- 'To' currency input field -->
-        <input type="text" id="toCurrencyInput" class="form-control" oninput="filterCurrencies('to')" placeholder="Type currency name or code">
+  <input type="text" id="toCurrencyInput" name="to_currency" value="{{to_currency}}" class="form-control" oninput="filterCurrencies('to')" placeholder="Type currency name or code">
         <!-- Dropdown for 'to' currency list -->
         <div id="toCurrencyList" class="currency-list list-group"></div>
       </div>
@@ -30,7 +30,7 @@
         <!-- Label for the amount input -->
         <label for="amountInput" class="form-label">Enter amount</label>
         <!-- Input field for the amount to convert -->
-        <input type="number" id="amountInput" class="form-control" placeholder="Enter amount">
+  <input type="number" id="amountInput" name="amount" value="" class="form-control" placeholder="Enter amount">
       </div>
 
       <!-- Button group for convert and clear actions -->

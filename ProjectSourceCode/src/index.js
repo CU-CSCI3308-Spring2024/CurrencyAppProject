@@ -429,13 +429,15 @@ app.post('/convert_currency', async (req, res) => {
   }
 });
 
-
-
-
-app.get('/currency_converter', (req,res)=>{
-  res.render('pages/currency_converter', { showNavbar: true });
+app.get('/currency_converter', (req, res) => {
+  const { from, to } = req.query;
+  res.render('pages/currency_converter', {
+    showNavbar: true, 
+    from_currency: from || '',
+    to_currency: to || '',
+    amount: '' 
+  });
 });
-
 
 
 app.get('/news', (req, res) => {
