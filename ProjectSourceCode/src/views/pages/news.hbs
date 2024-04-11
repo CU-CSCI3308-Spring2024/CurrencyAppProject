@@ -1,16 +1,18 @@
 <div class="container mt-5">
-    <h1 class="text-center mb-3">Latest News On Currency</h1>
+    <h1 class="text-center mb-3">Latest News On Currency Exchange</h1>
     {{#if articles}}
-        <ul class="list">
+        <div class="row" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 40px;">
             {{#each articles}}
-                <li class="my-2 text-center">
-                    <img src="{{image}}" alt="" style="max-width: 100%; height: auto; display: block; margin: 0 auto;">
-                    <strong>{{title}}</strong> - {{description}}
-                    <br>
-                    <a href="{{url}}" target="_blank" class="btn btn-primary mt-2">Read more</a>
-                </li>
+                <div class="news-item" style="flex: 1 0 47%; margin-bottom: 20px; display: flex; align-items: flex-start; gap: 20px; padding: 10px; max-width: 640px;">
+                    <img src="{{image}}" alt="{{title}}" class="news-image" style="width: 200px; height: auto; flex-shrink: 0;">
+                    <div style="flex-grow: 1;">
+                        <strong>{{title}}</strong> - {{description}}
+                        <br>
+                        <a href="{{url}}" target="_blank" class="btn btn-primary mt-2">Read more</a>
+                    </div>
+                </div>
             {{/each}}
-        </ul>
+        </div>
     {{else}}
         <p class="text-center">No news articles found.</p>
     {{/if}}

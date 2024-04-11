@@ -460,7 +460,7 @@ app.get('/news', (req, res) => {
             title: article.title,
             description: article.description,
             url: article.url,
-            imageURL: article.urlToImage
+            image: article.urlToImage
         }))
     });
 })
