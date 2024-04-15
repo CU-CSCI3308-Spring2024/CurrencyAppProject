@@ -1,3 +1,5 @@
+let myChart;
+
 function clearFields() {
     // Clear the input fields
     document.querySelector("input[type='text']").value = '';
@@ -8,7 +10,6 @@ function clearFields() {
     document.querySelector('.card-text:nth-of-type(1)').textContent = 'Please enter values to see the converted currency';
     document.getElementById('exchangeRate').textContent = '---';
 }
-
 
 var currencies = {
     'USD': 'United States Dollar',
@@ -267,6 +268,100 @@ function convertCurrency() {
             document.getElementById('conversionText').textContent = 'Conversion error';
         });
 }
+
+
+function loadCurrencyData() {
+    return fetch('/api/historical_rates')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);
+            const ctx = document.getElementById('currencyChart').getContext('2d');
+            if (myChart) {
+                myChart.destroy(); 
+            }
+            
+            const datasets=[{
+                label: 'EUR',
+                data:[12, 19, 3, 5],
+                borderWidth: 1
+            },
+            {
+                label: 'CAD',
+                data:[2, 3, 30, 5],
+                borderWidth: 1
+            }
+        ];
+        const labels = [
+            '2021',
+            '2022',
+            '2023',
+            '2024'
+        ];
+
+
+            myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    scales: {
+                        x: { 
+                            title: {
+                                display: true,
+                                text: 'Year'
+                            }
+                        },
+                        y: {
+                            beginAtZero: false,
+                            title: {
+                                display: true,
+                                text: 'Value'
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.y !== null) {
+                                        label += new Intl.NumberFormat().format(context.parsed.y);
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        })
+        .catch(error => {
+            console.error('Error loading chart data:', error);
+        });
+}
+
+function randomColor() {
+    // This function should return a random color for the datasets
+    return `#${Math.floor(Math.random()*16777215).toString(16)}`;
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    loadCurrencyData();
+});
+
 
 
 

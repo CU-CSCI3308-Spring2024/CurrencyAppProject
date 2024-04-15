@@ -7,13 +7,23 @@
             <h5 class="card-title">{{from_currency}} to {{to_currency}}</h5>
             <p class="card-text">{{amount}} -> {{converted_amount}}</p>
             <p class="card-text"><small class="text-muted">{{created_at}}</small></p>
-            <!-- Updated link to not include the 'amount' in the query -->
             <a href="/currency_converter?from={{from_currency}}&to={{to_currency}}" class="btn btn-primary">Convert Again</a>
           </div>
         </div>
       </div>
     {{/each}}
   </div>
+  <div class="chart-container" style="position: relative; height:600px; width:600px;">
+      <canvas id="currencyChart"></canvas>
+  </div>
 {{else}}
   <p class="text-center">No conversion history available.</p>
 {{/if}}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="/js/script.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    loadCurrencyData();
+  });
+</script>
