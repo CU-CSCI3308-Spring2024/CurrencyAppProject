@@ -377,13 +377,15 @@ app.get('/api/historical_rates', async (req, res) => {
       const fromCurrency = 'USD';
       const toCurrencies = ['USD', 'EUR'];
       const today = new Date();
-      const lastYear = new Date(today.setFullYear(today.getFullYear() - 1)).toISOString().split('T')[0];
+      const yearToday = today.getFullYear();
+      const fourYearsAgoStart = new Date(yearToday - 4, 0, 1);
       const historicalData = await db.any(`select
         from_currency,
         to_currency,
         rate,
         created_at
-        from conversions;`)
+        from conversions;`,
+        [fourYearsAgoStart.toISOString().split('T')[0], toCurrencies]);
 
 /*
       const responses = await Promise.all(toCurrencies.map(currency =>
