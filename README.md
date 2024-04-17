@@ -21,6 +21,29 @@ Chloé Wolff de Grivel Perrigny, Kate Ehrnstrom, Daniel Folino, Carter Sammis, Y
 * Currency Converter API
 
 ## How to Run Application Locally 
+1. Create a free Currency Converter API
+* Use [this link](https://currencyapi.com/) to get an API key
+2. Get API key 
+* Once you are registered, you'll be redirected to a page with your API key 
+3. Create .env file 
+* Within the ProjectSourceCode file, create an .env file as specified below: 
+```python
+# database credentials
+POSTGRES_USER="postgres"
+POSTGRES_PASSWORD="pwd"
+POSTGRES_DB="users_db"
+
+# Node vars
+SESSION_SECRET="super duper secret!"
+API_KEY="<your currency converter API key>"
+```
+4. Run website
+* Use 
+```bash
+docker compose up 
+```
+to run the website
+* The website should now be running at [http://localhost:3000/](http://localhost:3000/)
 
 ## How to Run Tests
 To run the test cases, run 
@@ -30,4 +53,5 @@ docker compose up
 in your local terminal, and the test cases should execute
 
 ## Link to Deployed Application 
+* This application is not currently deployed 
 
