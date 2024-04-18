@@ -5,7 +5,7 @@
         <div class="card h-100">
           <div class="card-body">
             <h5 class="card-title">{{from_currency}} to {{to_currency}}</h5>
-            <p class="card-text">{{amount}} -> {{converted_amount}}</p>
+            <p class="card-text">{{amount}} = {{converted_amount}}</p>
             <p class="card-text"><small class="text-muted">{{created_at}}</small></p>
             <a href="/currency_converter?from={{from_currency}}&to={{to_currency}}" class="btn btn-primary">Convert Again</a>
           </div>
@@ -13,11 +13,11 @@
       </div>
     {{/each}}
   </div>
-  <div class="chart-container" style="position: relative; height:600px; width:600px;">
-      <canvas id="currencyChart"></canvas>
+  <div class="chart-container" style="position: relative;">
+      <div id="charts"></div>
   </div>
 {{else}}
-  <p class="text-center">No conversion history available.</p>
+  <p class="text-center">User has no conversion history.</p>
 {{/if}}
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

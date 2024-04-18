@@ -384,9 +384,8 @@ app.get('/api/historical_rates', async (req, res) => {
         to_currency,
         rate,
         created_at
-        from conversions;`,
-        [fourYearsAgoStart.toISOString().split('T')[0], toCurrencies]);
-
+        from conversions;`
+      );
 /*
       const responses = await Promise.all(toCurrencies.map(currency =>
         
@@ -430,7 +429,7 @@ if (!req.session.user) {
 next();
 };
 
-// Authentication Required
+// Auth Required
 app.use(auth);
 
 app.get('/profile', (req, res) => {

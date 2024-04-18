@@ -1,4 +1,4 @@
-let myChart;
+let CHARTS = [];
 
 function clearFields() {
     // Clear the input fields
@@ -206,10 +206,9 @@ function filterCurrencies(type) {
     input = document.getElementById(type === 'from' ? 'fromCurrencyInput' : 'toCurrencyInput');
     filter = input.value.toUpperCase();
     div = document.getElementById(type === 'from' ? 'fromCurrencyList' : 'toCurrencyList');
-    div.innerHTML = ''; // Clear previous options
+    div.innerHTML = ''; 
     if (filter) {
         for (code in currencies) {
-            // Check if the currency code or name contains the search term
             if (code.indexOf(filter) > -1 || currencies[code].toUpperCase().indexOf(filter) > -1) {
                 var listItem = document.createElement('div');
                 listItem.className = 'currency-list-item';
@@ -271,87 +270,104 @@ function convertCurrency() {
 
 
 function loadCurrencyData() {
-    return fetch('/api/historical_rates')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json();
-        })
+    fetch('/api/historical_rates')
+        .then(response => response.json())
         .then(data => {
+            const labels = []; 
+            const datasets = {};
+            const colors = ['red', 'blue', 'green', 'yellow', 'purple', 'orange', 'pink', 'brown', 'black', 'gray'];
             console.log(data);
-            const ctx = document.getElementById('currencyChart').getContext('2d');
-            if (myChart) {
-                myChart.destroy(); 
+            for (const d of data){
+                if (!datasets[d.from_currency]){
+                    datasets[d.from_currency] = {}
+                }
+                const chart_dataset = datasets[d.from_currency];
+
+                if(!chart_dataset[d.to_currency])
+                {
+                    chart_dataset[d.to_currency] = {
+                        label: d.to_currency,
+                        data: [],
+                        fill: false,
+                        borderWidth: 1,
+                        borderColor: colors[chart_dataset.length]
+                    };
+                }
+                chart_dataset[d.to_currency].data.push({
+                    x: d.created_at,
+                    y: d.rate
+                });
             }
-            
-            const datasets=[{
-                label: 'EUR',
-                data:[12, 19, 3, 5],
-                borderWidth: 1
-            },
+
+            CHARTS.forEach(chart => chart.destroy());
+            const parent = document.getElementById('charts');
+            for (const child of parent.children)
             {
-                label: 'CAD',
-                data:[2, 3, 30, 5],
-                borderWidth: 1
+                child.remove();
             }
-        ];
-        const labels = [
-            '2021',
-            '2022',
-            '2023',
-            '2024'
-        ];
-
-
-            myChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: datasets
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: true,
-                    scales: {
-                        x: { 
-                            title: {
-                                display: true,
-                                text: 'Year'
+            parent.innerHTML = '';
+            CHARTS = Object.entries(datasets).map(([from_currency, chart_dataset]) =>{
+                const chart_data = Array.from(Object.values(chart_dataset));
+                const box = document.createElement('div');
+                box.style = 'height:400px; width:400px;';
+                const canvas = document.createElement('canvas');
+                canvas.id = from_currency;
+                canvas.height = '100px';
+                canvas.width = '100px';
+                box.appendChild(canvas);
+                parent.appendChild(box);
+                const ctx = canvas.getContext('2d');
+                return new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: chart_data
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        scales: {
+                            x: { 
+                                title: {
+                                    display: true,
+                                    text: 'Year'
+                                }
+                            },
+                            y: {
+                                beginAtZero: false,
+                                title: {
+                                    display: true,
+                                    text: 'Exchange Rate'
+                                }
                             }
                         },
-                        y: {
-                            beginAtZero: false,
-                            title: {
-                                display: true,
-                                text: 'Value'
-                            }
-                        }
-                    },
-                    plugins: {
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    let label = context.dataset.label || '';
-
-                                    if (label) {
-                                        label += ': ';
+                        plugins: {
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.dataset.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        if (context.parsed.y !== null) {
+                                            label += new Intl.NumberFormat().format(context.parsed.y);
+                                        }
+                                        return label;
                                     }
-                                    if (context.parsed.y !== null) {
-                                        label += new Intl.NumberFormat().format(context.parsed.y);
-                                    }
-                                    return label;
                                 }
                             }
                         }
                     }
-                }
-            });
+                
+                });
+            })
         })
         .catch(error => {
             console.error('Error loading chart data:', error);
         });
 }
+
+
 
 function randomColor() {
     // This function should return a random color for the datasets
@@ -375,3 +391,4 @@ function clearFields() {
 
 //
 //
+
