@@ -395,12 +395,12 @@ app.get('/api/historical_rates', async (req, res) => {
       const yearToday = today.getFullYear();
       const fourYearsAgoStart = new Date(yearToday - 4, 0, 1);
       const historicalData = await db.any(`select
-        from_currency,
-        to_currency,
-        rate,
-        created_at
-        from conversions
-        ORDER BY created_at ASC;`
+      from_currency,
+      to_currency,
+      rate,
+      created_at
+      from conversions
+      ORDER BY created_at ASC;`
       );
 /*
       const responses = await Promise.all(toCurrencies.map(currency =>

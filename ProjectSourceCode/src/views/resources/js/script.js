@@ -328,6 +328,10 @@ function loadCurrencyData() {
                         maintainAspectRatio: true,
                         scales: {
                             x: { 
+                                type: 'time',
+                                time: {
+                                    unit: 'year'
+                                },
                                 title: {
                                     display: true,
                                     text: 'Year'
