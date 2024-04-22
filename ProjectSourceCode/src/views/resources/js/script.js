@@ -309,7 +309,7 @@ function loadCurrencyData() {
             CHARTS = Object.entries(datasets).map(([from_currency, chart_dataset]) =>{
                 const chart_data = Array.from(Object.values(chart_dataset));
                 const box = document.createElement('div');
-                box.style = 'height:400px; width:400px;';
+                box.style = 'height:500px; width:500px;';
                 const canvas = document.createElement('canvas');
                 canvas.id = from_currency;
                 canvas.height = '100px';
@@ -358,6 +358,16 @@ function loadCurrencyData() {
                                         }
                                         return label;
                                     }
+                                }
+                            },
+                            title: {
+                                display: from_currency === 'USD',
+                                text: 'Historical Exchange Rates for USD',
+                                position: 'top',
+                                font: {
+                                    size: 15, 
+                                    weight: 'bold', 
+                                    family: 'Arial' 
                                 }
                             }
                         }
