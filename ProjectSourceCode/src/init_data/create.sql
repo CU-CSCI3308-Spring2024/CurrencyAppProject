@@ -23,4 +23,3 @@ CREATE TABLE IF NOT EXISTS conversions (
     FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE,
     converted_amount numeric generated always as (amount * rate) STORED
 );
-

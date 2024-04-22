@@ -399,7 +399,8 @@ app.get('/api/historical_rates', async (req, res) => {
         to_currency,
         rate,
         created_at
-        from conversions;`
+        from conversions
+        ORDER BY created_at ASC;`
       );
 /*
       const responses = await Promise.all(toCurrencies.map(currency =>
