@@ -1,25 +1,53 @@
 {{#if searchHistory.length}}
-  <div class="row">
-    {{#each searchHistory}}
-      <div class="col-md-4 mb-3">
-        <div class="card h-100">
-          <div class="card-body">
-            <h5 class="card-title">{{from_currency}} to {{to_currency}}</h5>
-            <p class="card-text">{{amount}} = {{converted_amount}}</p>
-            <p class="card-text"><small class="text-muted">{{created_at}}</small></p>
-            <a href="/currency_converter?from={{from_currency}}&to={{to_currency}}" class="btn btn-primary">Convert Again</a>
-          </div>
+<style>
+.chart-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.chart-box {
+  flex: 0 0 calc(45% - 10px); 
+  height: 400px; 
+  margin: 5px; 
+}
+
+@media (max-width: 1024px) {
+  .chart-box {
+    flex-basis: calc(50% - 10px); 
+    height: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .chart-box {
+    flex-basis: 100%; 
+    height: 400px;
+  }
+}
+
+</style>
+<div class="row">
+  {{#each searchHistory}}
+    <div class="col-md-4 mb-3">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title">{{from_currency}} to {{to_currency}}</h5>
+          <p class="card-text">{{amount}} = {{converted_amount}}</p>
+          <p class="card-text"><small class="text-muted">{{created_at}}</small></p>
+          <a href="/currency_converter?from={{from_currency}}&to={{to_currency}}" class="btn btn-primary">Convert Again</a>
         </div>
       </div>
-    {{/each}}
-  </div>
-  <div class="chart-container" style="position: relative;">
-      <div id="charts"></div>
-  </div>
+    </div>
+  {{/each}}
+</div>
+<div class="chart-container" id="charts">
+</div>
 {{else}}
-  <p class="text-center">User has no conversion history.</p>
+<p class="text-center">User has no conversion history.</p>
 {{/if}}
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
 <script src="/js/script.js"></script>

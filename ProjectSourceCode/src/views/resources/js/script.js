@@ -298,9 +298,8 @@ function loadCurrencyData() {
                     y: d.rate
                 });
             }
-
-            CHARTS.forEach(chart => chart.destroy());
             const parent = document.getElementById('charts');
+            CHARTS.forEach(chart => chart.destroy());
             for (const child of parent.children)
             {
                 child.remove();
@@ -309,14 +308,17 @@ function loadCurrencyData() {
             CHARTS = Object.entries(datasets).map(([from_currency, chart_dataset]) =>{
                 const chart_data = Array.from(Object.values(chart_dataset));
                 const box = document.createElement('div');
+                box.className = 'chart-box';
                 box.style = 'height:500px; width:500px;';
+                parent.appendChild(box);
                 const canvas = document.createElement('canvas');
                 canvas.id = from_currency;
-                canvas.height = '100px';
-                canvas.width = '100px';
+                canvas.height = '500';
+                canvas.width = '500';
                 box.appendChild(canvas);
-                parent.appendChild(box);
                 const ctx = canvas.getContext('2d');
+                const chartTitleText = from_currency === 'USD' ? `Historical Exchange Rates for ${from_currency}` : `Exchange Rates for ${from_currency}`;
+
                 return new Chart(ctx, {
                     type: 'line',
                     data: {
@@ -325,16 +327,18 @@ function loadCurrencyData() {
                     },
                     options: {
                         responsive: true,
-                        maintainAspectRatio: true,
+                        maintainAspectRatio: false,
                         scales: {
                             x: { 
                                 type: 'time',
                                 time: {
-                                    unit: 'year'
+                                    displayFormats: {
+                                        unit: 'year',
+                                    }
                                 },
                                 title: {
                                     display: true,
-                                    text: 'Year'
+                                    text: 'Time Period'
                                 }
                             },
                             y: {
@@ -361,8 +365,8 @@ function loadCurrencyData() {
                                 }
                             },
                             title: {
-                                display: from_currency === 'USD',
-                                text: 'Historical Exchange Rates for USD',
+                                display: true,
+                                text: chartTitleText,
                                 position: 'top',
                                 font: {
                                     size: 15, 
